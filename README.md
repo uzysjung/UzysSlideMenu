@@ -10,6 +10,7 @@ Slide Dropdown Menu
 * It's very simple structure.
 * Very Easy to customize menu view , you can use interface builder.  
 * Support Both ARC and non-ARC Project
+* Support CocoaPods.
 
 ## Installation
 Copy over the files libary folder to your project folder
