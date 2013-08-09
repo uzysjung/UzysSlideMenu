@@ -36,11 +36,11 @@ item0.tag = 0;
 self.uzysSMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2]];
 [self.view addSubview:self.uzysSMenu];
 ```
-
+## Other Environments 
+ - UzysSlideMenu for Xamarin - https://github.com/blounty/Xamarin.UzysSlideMenu
+ 
 ## Contact
-
  - [Uzys.net](http://uzys.net)
 
 ## License
-
  - See [LICENSE](https://github.com/uzysjung/UzysSlideMenu/blob/master/MIT-LICENSE.txt).
