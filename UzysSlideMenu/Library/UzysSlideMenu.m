@@ -92,6 +92,13 @@
     }
 
 }
+- (void)toggleMenuWithCompletion:(void(^)(UzysSMState state))block
+{
+    [self toggleMenu];
+    
+    if (block) block(self.menuState);
+}
+
 #pragma mark - MenuState
 
 -(void)showIconMenu:(BOOL)animation

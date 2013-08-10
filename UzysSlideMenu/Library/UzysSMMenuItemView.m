@@ -50,7 +50,7 @@
 -(void)setItem:(UzysSMMenuItem *)item
 {
     [_item release];
-    _item = [item retain];
+    _item = [item ah_retain];
     _imageView.image = item.image;
     _label.text = item.title;
     
