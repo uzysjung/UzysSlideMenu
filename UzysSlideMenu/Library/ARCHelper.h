@@ -18,10 +18,11 @@
 #define ah_dealloc self
 #define release self
 #define autorelease self
-#define __block __weak
+#define ah__block __weak
 #else
 #define ah_retain retain
 #define ah_dealloc dealloc
+#define ah__block __block
 #define __bridge
 #endif
 #endif
