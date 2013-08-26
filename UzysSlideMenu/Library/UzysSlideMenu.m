@@ -7,14 +7,11 @@
 //
 
 #import "UzysSlideMenu.h"
-
-
-
 @interface UzysSlideMenu()
-
-@property (nonatomic,strong) UIView *backgroundView;
+@property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) NSMutableArray *itemViews;
 @property (nonatomic,assign) UzysSMState state;
+
 -(void)setupLayout;
 @end
 @implementation UzysSlideMenu
@@ -28,25 +25,36 @@
         self.pItems = items;
         self.itemViews = [NSMutableArray array];
         self.state = STATE_ICON_MENU;
-        
         [self setupLayout];
         [self showIconMenu:NO];
     }
     return self;
 }
+
 - (void)dealloc
 {
-    [_backgroundView release];
+    [_scrollView release];
     [_itemViews release];
     [_pItems release];
     [super ah_dealloc];
 }
 -(void)setupLayout
 {
+
     UzysSMMenuItemView *itemView = [[[NSBundle mainBundle] loadNibNamed:@"UzysSMMenuItemView" owner:self options:nil] lastObject];
     CGFloat menuHeight =itemView.bounds.size.height * [_pItems count];
     CGFloat menuWidth = itemView.bounds.size.width;
-    [self setFrame:CGRectMake(0, 0, menuWidth, menuHeight)];
+    [self setFrame:CGRectMake(0, 0, menuWidth, [UIScreen mainScreen].applicationFrame.size.height)];
+    
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    _scrollView.backgroundColor = [UIColor clearColor];
+    _scrollView.bounces = NO;
+    _scrollView.showsVerticalScrollIndicator = NO;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.contentSize = CGSizeMake(menuWidth, menuHeight);
+    [self addSubview:_scrollView];
+    
 
     [self.pItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
@@ -61,8 +69,9 @@
         itemView.userInteractionEnabled = YES;
         itemView.tag = itemView.item.tag;
         itemView.delegate = self;
-        [self addSubview:itemView];
-        [self sendSubviewToBack:itemView];
+
+        [self.scrollView addSubview:itemView];
+        [self.scrollView sendSubviewToBack:itemView];
         [self.itemViews addObject:itemView];
         
     }];
@@ -105,7 +114,6 @@
 {
     if(animation)
     {
-        
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent animations:^{
             
             [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -128,6 +136,7 @@
                     itemView.seperatorView.alpha = 1;
                     itemView.alpha = 0;
                 }
+                self.scrollView.contentOffset = CGPointZero;
             }];
             
         } completion:^(BOOL finished) {
@@ -159,6 +168,7 @@
                 itemView.alpha = 0;
             }
         }];
+        self.scrollView.contentOffset = CGPointZero;
         self.state = STATE_ICON_MENU;
 
     }
@@ -168,7 +178,7 @@
     if(animation)
     {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent animations:^{
-
+            self.scrollView.contentOffset = CGPointZero;
             [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 
                 UzysSMMenuItemView *itemView = obj;
@@ -198,6 +208,7 @@
     }
     else
     {
+        self.scrollView.contentOffset = CGPointZero;
         [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
             UzysSMMenuItemView *itemView = obj;
@@ -230,6 +241,7 @@
     {
         
         [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseIn animations:^{
+            self.scrollView.contentOffset = CGPointZero;
             [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 UzysSMMenuItemView *itemView = obj;
                 itemView.targetFrame = CGRectMake(0, itemView.bounds.size.height*idx, itemView.bounds.size.width, itemView.bounds.size.height);
@@ -259,6 +271,7 @@
     }
     else
     {
+        self.scrollView.contentOffset = CGPointZero;
         [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             UzysSMMenuItemView *itemView = obj;
             itemView.targetFrame = CGRectMake(0, itemView.bounds.size.height*idx, itemView.bounds.size.width, itemView.bounds.size.height);
@@ -297,15 +310,17 @@
 {
     if(self.state == STATE_FULL_MENU)
     {
-        if(CGRectContainsPoint(self.frame, point))
+        if(CGRectContainsPoint(CGRectMake(self.scrollView.frame.origin.x,
+                                          self.scrollView.frame.origin.y,
+                                          self.scrollView.contentSize.width,
+                                          self.scrollView.contentSize.height), point))
         {
-
             return [super hitTest:point withEvent:event];
         }
         else
         {
             return nil;
-        }        
+        }
     }
     else if(self.state == STATE_ICON_MENU)
     {
@@ -313,7 +328,6 @@
         
         if(CGRectContainsPoint(view.imageView.frame, point))
         {
-//            return view.imageView;
             return [super hitTest:point withEvent:event];
         }
         else
@@ -326,7 +340,6 @@
         UzysSMMenuItemView *view = [self.itemViews objectAtIndex:0];
         if(CGRectContainsPoint(view.frame, point))
         {
-//            return view;
             return [super hitTest:point withEvent:event];
         }
         else
