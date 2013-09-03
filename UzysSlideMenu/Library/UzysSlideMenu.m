@@ -112,42 +112,9 @@
 
 -(void)showIconMenu:(BOOL)animation
 {
-    if(animation)
-    {
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent animations:^{
-            
-            [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                
-                UzysSMMenuItemView *itemView = obj;
-                itemView.frame = CGRectMake(0, 0, itemView.bounds.size.width, itemView.bounds.size.height);
-                
-                if(idx ==0)
-                {
-                    itemView.alpha = 1;
-                    itemView.label.alpha = 0;
-                    itemView.backgroundView.alpha = 0;
-                    itemView.seperatorView.alpha = 0;
-                    itemView.imageView.alpha = 1;
-                }
-                else
-                {
-                    itemView.backgroundView.alpha = 0.7;
-                    itemView.label.alpha = 0;
-                    itemView.seperatorView.alpha = 1;
-                    itemView.alpha = 0;
-                }
-                self.scrollView.contentOffset = CGPointZero;
-            }];
-            
-        } completion:^(BOOL finished) {
-            self.state = STATE_ICON_MENU;
-        }];
-        
-
-    }
-    else
-    {
-        [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    ah__block typeof(self) blockSelf = self;
+    void(^itemViewsSettingBlock)(void) = ^{
+        [blockSelf.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
             UzysSMMenuItemView *itemView = obj;
             itemView.frame = CGRectMake(0, 0, itemView.bounds.size.width, itemView.bounds.size.height);
@@ -164,52 +131,39 @@
             {
                 itemView.backgroundView.alpha = 0.7;
                 itemView.label.alpha = 0;
-                itemView.seperatorView.alpha = 0;
+                itemView.seperatorView.alpha = 1;
                 itemView.alpha = 0;
             }
+            blockSelf.scrollView.contentOffset = CGPointZero;
         }];
-        self.scrollView.contentOffset = CGPointZero;
+    };
+
+    
+    if(animation)
+    {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent animations:^{
+            
+            itemViewsSettingBlock();
+            
+        } completion:^(BOOL finished) {
+            self.state = STATE_ICON_MENU;
+        }];
+        
+
+    }
+    else
+    {
+        itemViewsSettingBlock();
         self.state = STATE_ICON_MENU;
 
     }
 }
 -(void)showMainMenu:(BOOL)animation
-{    
-    if(animation)
-    {
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent animations:^{
-            self.scrollView.contentOffset = CGPointZero;
-            [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                
-                UzysSMMenuItemView *itemView = obj;
-                itemView.frame = CGRectMake(0, 0, itemView.bounds.size.width, itemView.bounds.size.height);
-                
-                if(idx ==0)
-                {
-                    itemView.alpha = 1;
-                    itemView.label.alpha =1;
-                    itemView.seperatorView.alpha = 0;
-                    itemView.imageView.alpha = 1;
-                    itemView.backgroundView.alpha = 0.3;
-                }
-                else
-                {
-                    itemView.alpha = 0;
-                    itemView.label.alpha =1;
-                    itemView.seperatorView.alpha = 0;
-                    itemView.imageView.alpha = 1;
-                    itemView.backgroundView.alpha = 0.3;
-                }
-            }];
-            
-        } completion:^(BOOL finished) {
-            self.state = STATE_MAIN_MENU;
-        }];
-    }
-    else
-    {
-        self.scrollView.contentOffset = CGPointZero;
-        [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+{
+    ah__block typeof(self) blockSelf = self;
+    void(^itemViewsSettingBlock)(void) = ^{
+        blockSelf.scrollView.contentOffset = CGPointZero;
+        [blockSelf.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
             UzysSMMenuItemView *itemView = obj;
             itemView.frame = CGRectMake(0, 0, itemView.bounds.size.width, itemView.bounds.size.height);
@@ -231,7 +185,20 @@
                 itemView.backgroundView.alpha = 0.3;
             }
         }];
-        
+
+    };
+    
+    if(animation)
+    {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent animations:^{
+            itemViewsSettingBlock();
+        } completion:^(BOOL finished) {
+            self.state = STATE_MAIN_MENU;
+        }];
+    }
+    else
+    {
+        itemViewsSettingBlock();        
         self.state = STATE_MAIN_MENU;
     }
 }

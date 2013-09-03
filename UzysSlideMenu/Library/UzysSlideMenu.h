@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UzysSMMenuItem.h"
 #import "UzysSMMenuItemView.h"
-
+#import "ARCHelper.h"
 typedef enum _UzysSMState {
     STATE_ICON_MENU,
     STATE_MAIN_MENU,
