@@ -25,9 +25,9 @@
     self.scrollView.delegate =self;
     
 
-    __block typeof(self) blockSelf = self;
+    ah__block typeof(self) blockSelf = self;
     UzysSMMenuItem *item0 = [[UzysSMMenuItem alloc] initWithTitle:@"UzysSlide Menu" image:[UIImage imageNamed:@"a0.png"] action:^(UzysSMMenuItem *item) {
-        NSLog(@"Item: %@", item);
+        NSLog(@"Item: %@ menuState : %d", item , blockSelf.uzysSMenu.menuState);
 
         [UIView animateWithDuration:0.2 animations:^{
             blockSelf.btnMain.frame = CGRectMake(100, 200, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
@@ -35,7 +35,7 @@
     }];
 
     UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"Favorite" image:[UIImage imageNamed:@"a1.png"] action:^(UzysSMMenuItem *item) {
-        NSLog(@"Item: %@", item);
+        NSLog(@"Item: %@ menuState : %d", item , blockSelf.uzysSMenu.menuState);
         [UIView animateWithDuration:0.2 animations:^{
             blockSelf.btnMain.frame = CGRectMake(10, 150, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
         }];
@@ -43,95 +43,16 @@
         
     }];
     UzysSMMenuItem *item2 = [[UzysSMMenuItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
+        NSLog(@"Item: %@ menuState : %d", item , blockSelf.uzysSMenu.menuState);
         [UIView animateWithDuration:0.2 animations:^{
             blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
         }];
-        NSLog(@"Item: %@", item);
-    }];
-    UzysSMMenuItem *item3 = [[UzysSMMenuItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    
-    UzysSMMenuItem *item4 = [[UzysSMMenuItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    
-    UzysSMMenuItem *item5 = [[UzysSMMenuItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    
-    UzysSMMenuItem *item6 = [[UzysSMMenuItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    UzysSMMenuItem *item7 = [[UzysSMMenuItem alloc] initWithTitle:@"Search7" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    UzysSMMenuItem *item8 = [[UzysSMMenuItem alloc] initWithTitle:@"Search8" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    UzysSMMenuItem *item9 = [[UzysSMMenuItem alloc] initWithTitle:@"Search9" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    
-    UzysSMMenuItem *item10 = [[UzysSMMenuItem alloc] initWithTitle:@"Search9" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    
-    UzysSMMenuItem *item11 = [[UzysSMMenuItem alloc] initWithTitle:@"Search9" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
-    }];
-    
-    UzysSMMenuItem *item12 = [[UzysSMMenuItem alloc] initWithTitle:@"Search12" image:[UIImage imageNamed:@"a2.png"] action:^(UzysSMMenuItem *item) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            blockSelf.btnMain.frame = CGRectMake(10, 250, blockSelf.btnMain.bounds.size.width, blockSelf.btnMain.bounds.size.height);
-        }];
-        NSLog(@"Item: %@", item);
     }];
     item0.tag = 0;
     item1.tag = 1;
     item2.tag = 2;
     
-    //Items must contain ImageView(icon).
-    self.uzysSMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2,item3,item4,item5,item6,item7,item8,item9,item10,item11,item12]];
-//    self.uzysSMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2,item3,item4,item5]];
+    self.uzysSMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2]];
  
     
     [self.view addSubview:self.uzysSMenu];
