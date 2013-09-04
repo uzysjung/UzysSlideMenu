@@ -23,8 +23,9 @@ typedef enum _UzysSMState {
 - (id)initWithItems:(NSArray *)items;
 - (void)toggleMenu;
 - (void)toggleMenuWithCompletion:(void(^)(UzysSMState state))block;
-- (void)openIconMenu;
 
+- (void)openMenu:(UzysSMState)state animated:(BOOL)animated;
+- (void)openIconMenu;
 
 - (CGRect)getMainIconFrame:(UIView *)view;
 @end

@@ -38,11 +38,11 @@
 {
     //Add something to make some highlighted effect
     if (_item.block) {
+        _item.block(_item);
         if([self.delegate respondsToSelector:@selector(UzysSMMenuItemDidAction:)] && self.delegate)
         {
             [self.delegate UzysSMMenuItemDidAction:self];
         }
-        _item.block(_item);
     }
 }
 

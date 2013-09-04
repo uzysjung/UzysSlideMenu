@@ -86,7 +86,8 @@
 
 -(void)toggleMenu
 {
-    switch (self.state) {
+    switch (self.state)
+    {
         case STATE_ICON_MENU:
             [self showFullMenu:YES];
             break;
@@ -99,13 +100,31 @@
         default:
             break;
     }
-
 }
+
 - (void)toggleMenuWithCompletion:(void(^)(UzysSMState state))block
 {
     [self toggleMenu];
-    
     if (block) block(self.menuState);
+}
+
+-(void)openMenu:(UzysSMState)state animated:(BOOL)animated
+{
+    self.state = state;
+    switch (state)
+    {
+        case STATE_ICON_MENU:
+            [self showIconMenu:animated];
+            break;
+        case STATE_MAIN_MENU:
+            [self showMainMenu:animated];
+            break;
+        case STATE_FULL_MENU:
+            [self showFullMenu:animated];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - MenuState
