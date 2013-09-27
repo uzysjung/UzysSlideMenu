@@ -8,6 +8,10 @@
 
 #import "UzysViewController.h"
 #import "UzysSlideMenu.h"
+
+#define IS_IOS7 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7
+
+
 @interface UzysViewController ()
 @property (nonatomic,strong) UzysSlideMenu *uzysSMenu;
 @end
@@ -18,6 +22,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
+    
     CGRect frame = [UIScreen mainScreen].applicationFrame;
     self.view.frame = frame;
     self.scrollView.frame = self.view.bounds;
@@ -52,8 +58,12 @@
     item1.tag = 1;
     item2.tag = 2;
     
+    NSInteger statusbarHeight = 0;
+    if(IS_IOS7)
+        statusbarHeight = 20;
+    
     self.uzysSMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2]];
- 
+    self.uzysSMenu.frame = CGRectMake(self.uzysSMenu.frame.origin.x, self.uzysSMenu.frame.origin.y+ statusbarHeight, self.uzysSMenu.frame.size.width, self.uzysSMenu.frame.size.height);
     
     [self.view addSubview:self.uzysSMenu];
 }
@@ -82,5 +92,10 @@
 {
     [self.uzysSMenu openIconMenu];
 
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 @end
