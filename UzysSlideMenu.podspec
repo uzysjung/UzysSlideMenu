@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "UzysSlideMenu"
-  s.version      = "1.0.1"
+  s.version      = "1.1.0"
   s.summary      = "Slide Dropdown Menu."
   s.author       = { "UzysJung" => "uzysjung@gmail.com" }
 
