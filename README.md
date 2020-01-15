@@ -13,7 +13,7 @@ Slide Dropdown Menu
 * Support CocoaPods.
 
 ## Installation
-Copy over the files libary folder to your project folder
+Copy over the files library folder to your project folder
 
 ## Usage
 
